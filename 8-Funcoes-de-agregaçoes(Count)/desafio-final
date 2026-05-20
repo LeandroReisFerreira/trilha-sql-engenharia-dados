@@ -1,0 +1,98 @@
+-- Desafio Final 1: Visão Geral do Catálogo
+-- Mostre em uma única consulta:
+-- - Total de produtos cadastrados
+-- - Quantidade total em estoque
+-- - Preço médio dos produtos (arredondado para 2 casas)
+-- - Produto mais barato
+-- - Produto mais caro
+
+SELECT
+    COUNT(produto_id) AS total_produtos_cadastrados,
+    SUM(estoque) AS total_em_estoque,
+    ROUND(AVG(preco), 2) AS preco_medio_produtos,
+    MIN(preco) AS preco_produto_mais_barato,
+    MAX(preco) AS preco_produto_mais_caro
+FROM produtos;
+
+
+
+-- Desafio Final 2: Análise de Vendas
+-- Mostre em uma única consulta:
+-- - Total de pedidos realizados
+-- - Valor total vendido
+-- - Ticket médio (valor médio por pedido)
+-- - Menor pedido
+-- - Maior pedido
+SELECT
+	COUNT(pedido_id) AS total_de_pedidos,
+	SUM(valor_total) AS total_vendido,
+	ROUND (AVG(valor_total),2) AS ticket_medio,
+	MIN(valor_total) AS valor_menor_pedido,
+	MAX(valor_total) AS valor_maior_pedido
+FROM pedidos;
+
+
+-- Desafio Final 3: Diversidade de Clientes
+-- Descubra:
+-- - Quantos clientes estão cadastrados
+-- - Em quantas cidades diferentes
+-- - Em quantos estados diferentes
+SELECT 
+	COUNT(cliente_id) AS quantidade_clientes_cadastrados,
+	COUNT(DISTINCT cidade) AS cidades_diferentes,
+	COUNT(DISTINCT estado) AS estados_diferentes
+FROM clientes
+
+
+
+
+-- Desafio Final 4: Estatísticas de Avaliações
+-- Mostre:
+-- - Total de avaliações
+-- - Nota média (arredondada para 1 casa decimal)
+-- - Menor nota
+-- - Maior nota
+SELECT
+	COUNT(avaliacao_id) AS total_avaliacoes,
+	ROUND (AVG(nota),1) AS nota_media,
+	MIN(nota) AS menor_nota,
+	MAX(nota) AS maior_nota
+FROM avaliacoes a 
+
+
+
+-- Desafio Final 5: Análise de Pagamentos (Desafio Avançado)
+-- Para pagamentos com status "aprovado":
+-- - Quantos pagamentos foram aprovados
+-- - Valor total aprovado
+-- - Valor médio aprovado
+-- - Quantos métodos de pagamento diferentes foram usados
+
+SELECT 
+    COUNT(*) AS pagamentos_aprovados,
+    SUM(valor) AS valor_total_aprovado,
+    AVG(valor) AS media_valor_aprovado,
+    COUNT(DISTINCT metodo) AS metodos_diferentes_pagamento
+FROM pagamentos
+WHERE status = 'aprovado';
+
+
+
+-- Desafio Final 6: Relatório Completo (Boss Final!)
+-- Crie uma consulta que mostre para produtos da marca "Samsung":
+-- - Quantidade de produtos Samsung
+-- - Estoque total de produtos Samsung
+-- - Preço médio (arredondado)
+-- - Produto Samsung mais barato
+-- - Produto Samsung mais caro
+
+SELECT 
+    COUNT(*) AS quantidade_produtos_samsung,
+    SUM(estoque) AS estoque_total_samsung,
+    ROUND(AVG(preco), 2) AS preco_medio_samsung,
+    MIN(preco) AS produto_samsung_mais_barato,
+    MAX(preco) AS produto_samsung_mais_caro
+FROM produtos
+WHERE marca = 'Samsung';
+
+
